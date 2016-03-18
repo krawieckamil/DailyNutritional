@@ -1,0 +1,74 @@
+<% if @user != current_user %>
+<div class="alert bg-danger">
+  <i class="fa fa-warning"></i> You are not allowed to see others users profiles!
+</div>
+<% else %>
+<div class="col-md-6">
+  <h2>User profile</h2>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= @user.name %></h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-3 col-lg-3 " align="center">
+              <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive">
+            </div>
+            <div class=" col-md-9 col-lg-9 ">
+              <table class="table table-user-information">
+                <tbody>
+                  <tr>
+                    <td>Date of Birth</td>
+                    <td><%= @user.date_of_birth.strftime("%d/%m/%Y") %></td>
+                  </tr>
+                  <tr>
+                    <td>Gender</td>
+                    <td>
+                      <% if @user.is_female %>
+                      Female
+                    <% else %>
+                      Male
+                      <% end %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Home Address</td>
+                    <td><%= @user.address %></td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td>
+                      <%= @user.email %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Phone Number</td>
+                    <td><%= @user.phone %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Weight</td>
+                    <td><%= @user.weight %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Height</td>
+                    <td><%= @user.height %>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-md-6">
+    <%= render :partial => "friendships/show" %>
+</div>
+<% end %>

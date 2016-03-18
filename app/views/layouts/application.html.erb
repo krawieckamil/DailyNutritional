@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Daily Naturitional</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="navbar-wrapper">
+      <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+      <div class="container">
+        <!-- HEADER END-->
+        <div class="navbar padding-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toogle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="<%= root_path %>">Daily<strong>Naturitional</strong>
+                <%# image_tag("logo.png") %>
+              </a>
+            </div>
+            <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-2">
+              <ul class="nav navbar-nav">
+                <% if user_signed_in? %>
+                <%# link_to 'Dashboard', user_meals_path(current_user), :class => "btn btn-primary" %>
+                <%= link_to 'Products', products_path, :class => "btn btn-primary" %>
+                <%= link_to 'Profile', user_path(current_user), :class => "btn btn-success" %>
+                <% end %>
+                <%= render 'devise/menu/registration_items' %>
+                <%= render 'devise/menu/login_items' %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.container -->
+    </div>
+    <!-- /.navbar-wrapper -->
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="item active">
+        <%= image_tag('bg-black.jpg') %>
+          <div class="container">
+            <div class="carousel-caption">
+              <div class="col-md-8 center-block col-centered">
+              <h1>Example headline.</h1>
+              <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+              <a class="btn btn-large btn-primary" href="#">Sign up today</a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.carousel -->
+
+    <!-- <div class="jumbotron">
+      <div class="container">
+        <div class="col-md-6">
+          <h1>
+            <strong>Daily Naturitional</strong>
+          </h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pharetra quam sollicitudin nibh aliquam finibus. Etiam efficitur felis vel imperdiet varius. Maecenas bibendum elementum molestie.</p>
+        </div>
+        <div class="col-md-3 col-md-offset-1">
+          <%= image_tag('lady.png', :class => "img-responsive") %>
+        </div>
+      </div>
+    </div> -->
+    <%= yield :fluid %>
+    <!-- LOGO HEADER END-->
+
+    <div class="container">
+      <!-- ALERTS -->
+      <% if flash[:notice] %>
+
+      <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <%= notice %>
+      </div>
+
+      <% end %>
+      <% if flash[:alert] %>
+
+      <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <%= alert %>
+      </div>
+      <% end %>
+      <%= yield %>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            &copy; 2016 Natalia Kowalik
+          </div>
+
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

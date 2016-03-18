@@ -1,0 +1,24 @@
+<h1>Products</h1>
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Kcal</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% @products.each do |type| %>
+      <td><%= type.id %></td>
+      <td><%= type.name %></td>
+      <td><%= type.kcal %></td>
+      <td><%=link_to 'Edit', edit_product_path(type) %></td>
+      <td><%=link_to 'Delete', product_path(type),
+            data: {:confirm => 'Are you sure?'}, :method => :delete %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="">Add new activity</a>
+    </h4>
+  </div>
+  <div id="collapseOne" class="panel-collapse collapse in" style="">
+    <div class="panel-body">
+      <%= form_for ([current_user, current_user.meals.build]) do |f| %>
+      <div class="input-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, :required => true, :class => "form-control" %>
+      </div>
+      <div class="input-group">
+        <%= f.label :date %><br/>
+        <%= f.date_select :date, :required => true, :class => "form-control" %><br/>
+      </div>
+      <div class="input-group">
+        <%= f.label :product_id %><br/>
+        <%= f.collection_select :product_id,  Product.all , :id, :name, :required => true, :prompt => "Select a category" %><br/>
+      </div>
+
+      <div class="padding-top">
+        <%= f.submit "Add", :class => "btn btn-info"  %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<li class="col-md-4">
+  <%= link_to user_activity_path(id: activity.id) do %>
+  <div class="thumbnail" style="padding: 0">
+    <div class="text-center padding-top">
+      <% if TypeOfActivity.find(activity.type_of_activity_id).name=="Running" %>
+        <%= image_tag("categories/running.png") %></br>
+        <% elsif TypeOfActivity.find(activity.type_of_activity_id).name=="Basketball" %>
+        <%= image_tag("categories/basketball.png") %></br>
+        <% elsif TypeOfActivity.find(activity.type_of_activity_id).name=="Cycling" %>
+        <%= image_tag("categories/cycling.png") %></br>
+        <% elsif TypeOfActivity.find(activity.type_of_activity_id).name=="Swimming" %>
+        <%= image_tag("categories/swimming.png") %></br>
+        <% else TypeOfActivity.find(activity.type_of_activity_id).name=="Walking" %>
+        <%= image_tag("categories/walking.png") %></br>
+      <% end%>
+    </div>
+    <div class="caption">
+      <h3><%= activity.name %></h3>
+      <p><%= TypeOfActivity.find(activity.type_of_activity_id).name %></p>
+      <small pull-right><i class="fa fa-clock-o"></i> <%= activity.date.strftime("%d/%m/%Y")%></small>
+    </div>
+    <div class="modal-footer" style="text-align: left">
+      <p>Fit+Points</p>
+      <div class="progress">
+
+        <div class="progress-bar" role="progressbar" aria-valuenow="<%= activity.fitpoints %>" aria-valuemin="0" aria-valuemax="1000" style="width: <%= activity.fitpoints*0.1 %>%;">
+            <span class="sr-only"><%= activity.fitpoints %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end  %>
+</li>

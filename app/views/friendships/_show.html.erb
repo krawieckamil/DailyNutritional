@@ -1,0 +1,72 @@
+<h2>Friends</h2>
+<div class="row">
+  <% if @user.friendships.count == 0 %>
+  <div class="alert bg-danger">
+    <i class="fa fa-frown-o"></i>
+    You have no friends.
+  </div>
+<% else %>
+  <ul class="thumbnails list-unstyled">
+    <% for friendship in @user.friendships %>
+    <%= link_to user_path(friendship.friend.id) do %>
+    <li class="col-md-3">
+      <div class="thumbnail text-center">
+        <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive">
+        <div class="caption">
+          <%= friendship.friend.name %>
+        </div>
+        <% if current_user==@user %>
+        <%= link_to "remove", friendship, :method => :delete, :class => "btn btn-default" %>
+        <% end %>
+      </div>
+    </li>
+    <% end %>
+    <% end %>
+  </ul>
+  <% end %>
+</div>
+
+<div class="row">
+  <h4>Friended by Users</h4>
+  <% if current_user.inverse_friends.count == 0 %>
+  <div class="alert bg-danger">
+    <i class="fa fa-frown-o"></i>
+    Nobody has added you as a friend :(
+  </div>
+<% else %>
+  <ul class="thumbnails list-unstyled">
+    <% for user in current_user.inverse_friends %>
+    <li class="col-md-3">
+      <div class="thumbnail text-center">
+        <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive">
+        <div class="caption">
+          <%= user.name %>
+        </div>
+      </div>
+    </li>
+    <% end %>
+  </ul>
+  <% end %>
+</div>
+<div class="clearfix"></div>
+<hr/>
+
+<h4>Find new friends</h4>
+<% for user in @users %>
+<% if user.id != current_user.id && user.name != nil %>
+<div class="col-md-6">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="col-md-3">
+        <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive">
+      </div>
+      <span><%= user.name %></span><br/>
+    </div>
+    <div class="panel-footer  ">
+      <span><%= user.email %></span>
+      <%= link_to "Add Friend", friendships_path(:friend_id => user), :method => :post, :class => "btn btn-xs btn-default pull-right" %>
+    </div>
+  </div>
+</div>
+<% end %>
+<% end %>

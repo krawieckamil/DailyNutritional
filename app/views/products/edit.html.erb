@@ -1,0 +1,23 @@
+<h1>Update product</h1>
+<div class="col-md-12 center-block text-center form-horizontal">
+  <div class="col-md-6 col-centered">
+    <%= form_for(@product) do |f| %>
+    <div class="col-md-2 control-label">
+      <%= f.label :name %>
+    </div>
+    <div class="col-md-10">
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <div class="col-md-2 control-label">
+      <%= f.label :kcal %>
+    </div>
+    <div class="col-md-10">
+      <%= f.number_field :kcal, class: 'form-control' %>
+    </div>
+    <div class="clearfix"></div>
+    <div class="padding-top">
+    <%= f.submit "Save changes", class: "btn btn-block btn-success" %>
+  </div>
+    <% end %>
+  </div>
+</div>

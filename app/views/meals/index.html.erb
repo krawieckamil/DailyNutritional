@@ -1,0 +1,51 @@
+<% if @user != current_user %>
+<div class="alert bg-danger">
+  <i class="fa fa-warning"></i> You are not allowed to see others users activities!
+</div>
+<% else %>
+<% javascript_include_tag "profile" %>
+<div class="row">
+  <h2>Your Dashboard</h2>
+  <hr/>
+  <div class="col-md-3 text-center">
+    <div class="circle circle1">
+      <strong></strong>
+    </div>
+    <span class="">Level</span>
+  </div>
+  <div class="col-md-3 text-center">
+    <div class="circle circle2">
+      <strong></strong>
+    </div>
+    <span class="">Activities in last week</span>
+  </div>
+
+  <div class="col-md-3 text-center">
+    <div class="circle circle3">
+      <strong></strong>
+    </div>
+    <span class="">Weight</span>
+  </div>
+  <div class="col-md-3 text-center">
+    <div class="circle circle4">
+      <strong></strong>
+    </div>
+    <span class="">Fit+Points</span>
+  </div>
+</div>
+<hr/>
+<div class="row">
+  <h2>Your activities</h2>
+  <div class="col-md-8">
+    <div class="row">
+      <ul class="thumbnails list-unstyled">
+        <%= render :partial => @meals %>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <%# render "activities/new" %>
+  </div>
+</div>
+
+<% end %>

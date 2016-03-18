@@ -1,0 +1,91 @@
+<%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqIa1hMLvg6czmrVIp1dCnjGdtFuZmRtM' %>
+<%= javascript_include_tag 'http://google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js' %>
+<h2>
+  <%= @activity.name %></h2>
+<div class="row">
+  <hr/>
+  <div class="col-xs-6 col-md-3">
+    <div class="panel status panel-danger">
+      <div class="panel-heading">
+        <h1 class="panel-title text-center">Date</h1>
+      </div>
+      <div class="panel-body text-center bigbig">
+        <i class="fa fa-calendar"></i><br/>
+        <strong><%= @activity.date.strftime("%d/%m/%Y") %></strong>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-6 col-md-3">
+    <div class="panel status panel-warning">
+      <div class="panel-heading">
+        <h1 class="panel-title text-center">Duration</h1>
+      </div>
+      <div class="panel-body text-center bigbig">
+        <i class="fa fa-clock-o"></i><br/>
+        <strong><%= @duration.to_i %> min</strong>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-6 col-md-3">
+    <div class="panel status panel-success">
+      <div class="panel-heading">
+        <h1 class="panel-title text-center">Category</h1>
+      </div>
+      <div class="panel-body text-center bigbig">
+        <% if @type.name=="Running" %>
+          <%= image_tag("categories/running.png") %></br>
+          <% elsif @type.name=="Basketball" %>
+          <%= image_tag("categories/basketball.png") %></br>
+          <% elsif @type.name=="Cycling" %>
+          <%= image_tag("categories/cycling.png") %></br>
+          <% elsif @type.name=="Swimming" %>
+          <%= image_tag("categories/swimming.png") %></br>
+          <% else @type.name=="Walking" %>
+          <%= image_tag("categories/walking.png") %></br>
+        <% end%>
+        <strong><%= @type.name %></strong>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-6 col-md-3">
+    <div class="panel status panel-info">
+      <div class="panel-heading">
+        <h1 class="panel-title text-center">Fit+Points</h1>
+      </div>
+      <div class="panel-body text-center bigbig">
+        <i class="fa fa-plus"></i><br/>
+        <strong><%= @activity.fitpoints %> Fit+Points</strong>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-12">
+    <div class="panel status panel-info">
+      <div class="panel-heading">
+        <h1 class="panel-title text-center">Location</h1>
+      </div>
+      <div class="panel-body text-center">
+        <div id="map" style='width: 100%; height: 200px;'></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  handler = Gmaps.build('Google');
+  handler.buildMap({
+    provider: {},
+    internal: {
+      id: 'map'
+    }
+  }, function () {
+    markers = handler.addMarkers([
+      {
+        "lat": <%= @activity.lat %>,
+        "lng": <%= @activity.lng %>
+      }
+    ]);
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    handler.getMap().setZoom(12);
+  });
+</script>
