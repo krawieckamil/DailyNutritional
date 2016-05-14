@@ -15,13 +15,15 @@ Rails.application.routes.draw do
 
   get 'users/:id' => 'profile#index'
 
+
+
   resources :users, :only => [:show] do
     resources :meals do
+      resources :products
     end
   end
-
+  resources :meals
   resources :products
-  resources :friendships
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -1,0 +1,55 @@
+<h1>Add new meal</h1>
+<hr/>
+<div class="col-md-12 center-block text-center form-horizontal">
+  <div class="col-md-6 col-centered">
+
+    <%= form_for(@meal) do |f| %>
+        <% if @meal.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@meal.errors.count, "error") %> prohibited this professor from being saved:</h2>
+
+              <ul>
+                <% @meal.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <div class="col-md-2 control-label">
+          <%= f.label :name %>
+        </div>
+        <div class="col-md-10">
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+        <div class="col-md-2 control-label">
+          <%= f.label :date %>
+        </div>
+        <div class="col-md-10">
+          <%= f.datetime_select :date, class: 'form-control' %>
+        </div>
+        <br/>
+        <div class="clearfix"></div>
+        <div class="padding-top"></div>
+        <div class="panel panel-info text-left">
+          <div class="panel-heading">
+            <%= f.label "Ingredients of the meal" %>
+          </div>
+          <div class="panel-body">
+            <ul class="list-group">
+              <%= f.collection_check_boxes :product_ids, Product.all, :id, :name do |b| %>
+                  <li class="list-group-item">
+                    <%= b.check_box %>
+                    <%= b.label %>
+                  </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="padding-top">
+          <%= f.submit "Create meal", :class => 'btn btn-block btn-lg btn-primary' %>
+        </div>
+    <% end %>
+  </div>
+</div>

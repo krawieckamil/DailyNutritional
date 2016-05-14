@@ -15,10 +15,16 @@
       <td><%= type.id %></td>
       <td><%= type.name %></td>
       <td><%= type.kcal %></td>
-      <td><%=link_to 'Edit', edit_product_path(type) %></td>
+      <td><%=link_to 'Edit', edit_product_path(type), :class => "btn btn-xs btn-default" %></td>
       <td><%=link_to 'Delete', product_path(type),
-            data: {:confirm => 'Are you sure?'}, :method => :delete %></td>
+            data: {:confirm => 'Are you sure?'}, :method => :delete,  :class => "btn btn-xs btn-warning" %></td>
     </tr>
     <% end %>
   </tbody>
 </table>
+
+<hr/>
+
+<div class="links">
+  <%= link_to 'New product', new_product_path, :class => 'btn btn-large btn-success' %><br>
+</div>

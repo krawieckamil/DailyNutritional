@@ -6,7 +6,7 @@ def index
 end
 
 def new
-  @product = Products.new
+  @product = Product.new
 end
 
 def create

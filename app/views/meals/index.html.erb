@@ -1,51 +1,59 @@
-<% if @user != current_user %>
-<div class="alert bg-danger">
-  <i class="fa fa-warning"></i> You are not allowed to see others users activities!
-</div>
-<% else %>
-<% javascript_include_tag "profile" %>
-<div class="row">
-  <h2>Your Dashboard</h2>
-  <hr/>
-  <div class="col-md-3 text-center">
-    <div class="circle circle1">
-      <strong></strong>
-    </div>
-    <span class="">Level</span>
-  </div>
-  <div class="col-md-3 text-center">
-    <div class="circle circle2">
-      <strong></strong>
-    </div>
-    <span class="">Activities in last week</span>
-  </div>
+<h1>Your dashboard</h1>
 
-  <div class="col-md-3 text-center">
-    <div class="circle circle3">
-      <strong></strong>
-    </div>
-    <span class="">Weight</span>
-  </div>
-  <div class="col-md-3 text-center">
-    <div class="circle circle4">
-      <strong></strong>
-    </div>
-    <span class="">Fit+Points</span>
+
+<h2>Kalories today</h2>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="<%=@kcalToday %>" aria-valuemin="0" aria-valuemax="100"
+       style="width: <%=number_with_precision((@kcalTodayF/@kcal_per_dayF)*100, :precision => 2) %>%">
+    <%= @kcalToday %> kcal
+    <span class="sr-only">Your reached the limit!</span>
   </div>
 </div>
+<p><span class="label label-default">Kcal today:<%= @kcalToday %></span><span class="label label-warning pull-right">Goal:<%= @kcal_per_day %></span></p>
+
+
+<h2>Your meals</h2>
 <hr/>
-<div class="row">
-  <h2>Your activities</h2>
-  <div class="col-md-8">
-    <div class="row">
-      <ul class="thumbnails list-unstyled">
-        <%= render :partial => @meals %>
-      </ul>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <%# render "activities/new" %>
-  </div>
-</div>
 
+
+
+<% @meals.each_slice(3) do |slice| -%>
+    <div class="row">
+      <% slice.each do |meal| %>
+          <div class="col-md-4">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <%= meal.name %>
+                <small class="pull-right">Date: <%= meal.date.strftime("%d/%m/%Y %H:%M") %></small>
+              </div>
+              <div class="panel-body">
+                <table class="table table-striped">
+                  <th>Name</th>
+                  <th>Kcal</th>
+                  <% meal.products.each do |product| %>
+                      <tr>
+                        <td><%= product.name %></td>
+                        <td><%= product.kcal %></td>
+                      </tr>
+                  <% end %>
+
+                  <tr class="warning text-info">
+                    <td><em>Sum</em></td>
+                    <td><em><%= meal.allKcal %></em></td>
+                  </tr>
+                </table>
+              </div>
+              <div class="panel-footer text-right">
+                <td><%= link_to 'Edit', edit_meal_path(meal), :class => "btn btn-xs btn-default" %></td>
+                <td><%= link_to 'Delete', meal, method: :delete, data: {confirm: 'Are you sure?'}, :class => "btn btn-xs btn-warning" %></td>
+              </div>
+            </div>
+          </div>
+      <% end %>
+    </div>
 <% end %>
+<hr/>
+
+<div class="links">
+  <%= link_to 'New meal', new_meal_path, :class => 'btn btn-large btn-success' %><br>
+</div>

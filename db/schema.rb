@@ -11,14 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160306202334) do
-
-  create_table "friendships", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.integer  "friend_id",  limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20160514112906) do
 
   create_table "meals", force: :cascade do |t|
     t.string   "name",    limit: 255
@@ -29,11 +22,9 @@ ActiveRecord::Schema.define(version: 20160306202334) do
   add_index "meals", ["user_id"], name: "index_meals_on_user_id", using: :btree
 
   create_table "meals_products", id: false, force: :cascade do |t|
-    t.integer "meal_id",    limit: 4
-    t.integer "product_id", limit: 4
+    t.integer "meal_id",    limit: 4, null: false
+    t.integer "product_id", limit: 4, null: false
   end
-
-  add_index "meals_products", ["meal_id", "product_id"], name: "index_meals_products_on_meal_id_and_product_id", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string  "name", limit: 255
@@ -54,12 +45,13 @@ ActiveRecord::Schema.define(version: 20160306202334) do
     t.datetime "created_at",                                                         null: false
     t.datetime "updated_at",                                                         null: false
     t.string   "name",                   limit: 255, default: "Sample user"
-    t.datetime "date_of_birth",                      default: '2016-03-06 20:32:48'
+    t.datetime "date_of_birth",                      default: '2016-05-03 15:09:12'
     t.boolean  "is_female",                          default: false
     t.string   "address",                limit: 255
     t.string   "phone",                  limit: 255
     t.integer  "weight",                 limit: 4,   default: 50
     t.integer  "height",                 limit: 4,   default: 174
+    t.integer  "kcal_per_day",           limit: 4,   default: 1800
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
